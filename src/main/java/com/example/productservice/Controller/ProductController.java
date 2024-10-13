@@ -52,7 +52,7 @@ public class ProductController {
         return p.from();
     }
 
-    public void updateProduct(){
+    public void PartialupdateProduct(){
 
     }
 
