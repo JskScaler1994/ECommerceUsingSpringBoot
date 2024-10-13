@@ -2,13 +2,12 @@ package com.example.productservice.DTO;
 
 import com.example.productservice.Models.category;
 import com.example.productservice.Models.product;
-import jdk.jfr.Category;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FakeStoreResponseDTO {
+public class FakeStoreProductResponseDTO {
     private long id;
     private String title;
     private String price;

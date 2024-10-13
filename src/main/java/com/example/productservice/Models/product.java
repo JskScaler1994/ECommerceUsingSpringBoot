@@ -19,7 +19,7 @@ public class product {
     public ProductResponseDTO from(){
         ProductResponseDTO dto = new ProductResponseDTO();
         dto.setId(this.id);
-        dto.setName(this.title);
+        dto.setTitle(this.title);
         dto.setPrice(this.price);
         dto.setDescription(this.description);
         dto.setCategory(category.getName());

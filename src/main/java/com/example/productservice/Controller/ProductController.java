@@ -1,12 +1,11 @@
 package com.example.productservice.Controller;
 
+import com.example.productservice.DTO.ProductRequestDTO;
 import com.example.productservice.DTO.ProductResponseDTO;
 import com.example.productservice.Models.product;
 import com.example.productservice.Services.FakeStoreProductService;
 import com.example.productservice.Services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +38,18 @@ public class ProductController {
         return p.from();
     }
 
-    public void createProduct(){
+    @PostMapping("/product")
+    public ProductResponseDTO createProduct(@RequestBody ProductRequestDTO requestDTO){
 
+        product p = productService.createProduct(
+                requestDTO.getTitle(),
+                requestDTO.getPrice(),
+                requestDTO.getDescription(),
+                requestDTO.getImage(),
+                requestDTO.getCategory()
+        );
+
+        return p.from();
     }
 
     public void updateProduct(){
