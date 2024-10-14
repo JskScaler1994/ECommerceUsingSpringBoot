@@ -5,6 +5,7 @@ import com.example.productservice.DTO.ProductResponseDTO;
 import com.example.productservice.Models.product;
 import com.example.productservice.Services.FakeStoreProductService;
 import com.example.productservice.Services.ProductService;
+import com.example.productservice.Services.productNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public ProductResponseDTO getProductbyId(@PathVariable("id") Long id){
+    public ProductResponseDTO getProductbyId(@PathVariable("id") Long id) throws productNotFoundException {
         product p = productService.getProductById(id);
         return p.from();
     }

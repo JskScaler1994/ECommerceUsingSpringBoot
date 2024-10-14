@@ -1,19 +1,18 @@
 package com.example.productservice.ExceptionHandler;
 
 import com.example.productservice.DTO.ErrorDTO;
-import com.example.productservice.Services.productNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice
 @RestController
-public class nullPointerException {
+public class productNotFoundException {
 
-    @ExceptionHandler(NullPointerException.class)
-    public ErrorDTO nullPointerException(NullPointerException e) {
+    @ExceptionHandler(com.example.productservice.Services.productNotFoundException.class)
+    public ErrorDTO productNotFound(com.example.productservice.Services.productNotFoundException e) {
         ErrorDTO dto = new ErrorDTO();
-        dto.setMessage("Null Pointer Exception");
+        dto.setMessage("Product Not Found");
         dto.setStatus("Failure");
 
         return dto;
