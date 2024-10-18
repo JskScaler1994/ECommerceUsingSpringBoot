@@ -7,6 +7,7 @@ import com.example.productservice.Services.FakeStoreProductService;
 import com.example.productservice.Services.ProductService;
 import com.example.productservice.Services.productNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,12 @@ import java.util.List;
 @RestController
 public class ProductController {
 
+    private final RestTemplate restTemplate;
     private FakeStoreProductService productService;
 
-    public ProductController(FakeStoreProductService productService) {
+    public ProductController(FakeStoreProductService productService, RestTemplate restTemplate) {
         this.productService = productService;
+        this.restTemplate = restTemplate;
     }
 
 
@@ -53,11 +56,21 @@ public class ProductController {
         return p.from();
     }
 
-    public void PartialupdateProduct(){
+    /* Patch is not working. Need to figure out the reason */
+    @PatchMapping("/product/{id}")
+    public ProductResponseDTO PartialUpdateProduct(@PathVariable("id") Long id,
+                                     @RequestBody ProductRequestDTO requestDTO){
+        product p = productService.updateProduct(id, requestDTO.getTitle(),
+                requestDTO.getPrice(),
+                requestDTO.getDescription(),
+                requestDTO.getImage(),
+                requestDTO.getCategory());
 
+        return p.from();
     }
 
-    public void deleteProduct(){
-
+    @DeleteMapping("/product/{id}")
+    public void deleteProduct(@PathVariable("id") Long id){
+        productService.deleteProduct(id);
     }
 }

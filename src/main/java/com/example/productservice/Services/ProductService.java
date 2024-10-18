@@ -9,4 +9,7 @@ public interface ProductService {
     public List<product> getAllProducts();
     public product createProduct(String title, Double price, String description,
                                  String image, String category);
+    public void deleteProduct(long id);
+    public product updateProduct(long id, String title, Double price, String description,
+                                 String image, String category);
 }
