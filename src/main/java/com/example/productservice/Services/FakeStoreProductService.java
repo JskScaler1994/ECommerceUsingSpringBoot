@@ -14,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.List.of;
+
 @Service
 public class FakeStoreProductService implements ProductService{
 
@@ -91,5 +93,18 @@ public class FakeStoreProductService implements ProductService{
         );
 
         return responseDTOHttpEntity.getBody().toProduct();
+    }
+
+
+    public List<product> getTop5(){
+        FakeStoreProductResponseDTO[] responseDTOS = restTemplate.getForObject("https://fakestoreapi.com/products?limit=5",
+                FakeStoreProductResponseDTO[].class);
+
+        ArrayList<product> products = new ArrayList<>();
+        for(FakeStoreProductResponseDTO dto:responseDTOS){
+            products.add(dto.toProduct());
+        }
+
+        return products;
     }
 }

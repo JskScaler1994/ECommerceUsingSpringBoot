@@ -73,4 +73,16 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id){
         productService.deleteProduct(id);
     }
+
+    @GetMapping("/product/limitToFive")
+    public List<ProductResponseDTO> getTop5Products(){
+        List<product> products = productService.getTop5();
+
+        List<ProductResponseDTO> productResponseDTOs = new ArrayList<>();
+        for(product p: products){
+            productResponseDTOs.add(p.from());
+        }
+
+        return productResponseDTOs;
+    }
 }
