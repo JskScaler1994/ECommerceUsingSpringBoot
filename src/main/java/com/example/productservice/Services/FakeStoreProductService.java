@@ -16,7 +16,7 @@ import java.util.List;
 
 import static java.util.List.of;
 
-@Service
+@Service("fakeStoreService")
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;

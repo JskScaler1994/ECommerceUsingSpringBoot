@@ -5,6 +5,7 @@ import com.example.productservice.Models.product;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class FakeStoreToSpringCartResponseDTO {
         c.setUserId(UserId);
         c.setDate(date);
         c.setProducts(products);
+
 
         return c;
     }

@@ -6,6 +6,8 @@ import com.example.productservice.Models.product;
 import com.example.productservice.Services.FakeStoreProductService;
 import com.example.productservice.Services.ProductService;
 import com.example.productservice.Services.productNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,9 +18,10 @@ import java.util.List;
 public class ProductController {
 
     private final RestTemplate restTemplate;
-    private FakeStoreProductService productService;
+    private ProductService productService;
 
-    public ProductController(FakeStoreProductService productService, RestTemplate restTemplate) {
+    @Autowired
+    public ProductController(@Qualifier("ProductDBService") ProductService productService, RestTemplate restTemplate) {
         this.productService = productService;
         this.restTemplate = restTemplate;
     }
