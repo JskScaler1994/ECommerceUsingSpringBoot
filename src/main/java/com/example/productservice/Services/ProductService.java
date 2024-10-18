@@ -12,4 +12,5 @@ public interface ProductService {
     public void deleteProduct(long id);
     public product updateProduct(long id, String title, Double price, String description,
                                  String image, String category);
+    public List<product> getTop5();
 }
