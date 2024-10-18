@@ -14,4 +14,15 @@ public class ProductResponseDTO {
     private Double price;
     private String description;
     private String category;
+
+    public static ProductResponseDTO giveBackToClient(product p){
+        ProductResponseDTO responseDTO = new ProductResponseDTO();
+        responseDTO.setId(p.getId());
+        responseDTO.setTitle(p.getTitle());
+        responseDTO.setPrice(p.getPrice());
+        responseDTO.setDescription(p.getDescription());
+        responseDTO.setCategory(p.getCategory().getName());
+
+        return responseDTO;
+    }
 }

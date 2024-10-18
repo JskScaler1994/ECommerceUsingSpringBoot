@@ -56,7 +56,8 @@ public class ProductController {
                 requestDTO.getCategory()
         );
 
-        return p.from();
+//        return p.from();
+        return ProductResponseDTO.giveBackToClient(p);
     }
 
     /* Patch is not working. Need to figure out the reason */

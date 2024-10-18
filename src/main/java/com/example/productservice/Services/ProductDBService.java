@@ -27,7 +27,7 @@ public class ProductDBService implements ProductService {
 
     @Override
     public List<product> getAllProducts() {
-        return List.of();
+        return productRepository.findAll();
     }
 
     @Override
