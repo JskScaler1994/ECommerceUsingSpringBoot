@@ -49,7 +49,7 @@ public class ProductDBService implements ProductService {
 
     @Override
     public void deleteProduct(long id) {
-
+        productRepository.deleteById(id);
     }
 
     @Override
