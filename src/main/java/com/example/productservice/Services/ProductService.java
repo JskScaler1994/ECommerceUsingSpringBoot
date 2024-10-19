@@ -11,6 +11,6 @@ public interface ProductService {
                                  String image, String category);
     public void deleteProduct(long id);
     public product updateProduct(long id, String title, Double price, String description,
-                                 String image, String category);
+                                 String image, String category) throws productNotFoundException;
     public List<product> getTop5();
 }

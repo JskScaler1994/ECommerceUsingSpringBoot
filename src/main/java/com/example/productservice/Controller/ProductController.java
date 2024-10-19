@@ -63,14 +63,15 @@ public class ProductController {
     /* Patch is not working. Need to figure out the reason */
     @PatchMapping("/product/{id}")
     public ProductResponseDTO PartialUpdateProduct(@PathVariable("id") Long id,
-                                     @RequestBody ProductRequestDTO requestDTO){
+                                     @RequestBody ProductRequestDTO requestDTO) throws productNotFoundException {
         product p = productService.updateProduct(id, requestDTO.getTitle(),
                 requestDTO.getPrice(),
                 requestDTO.getDescription(),
                 requestDTO.getImage(),
                 requestDTO.getCategory());
 
-        return p.from();
+//        return p.from();
+        return ProductResponseDTO.giveBackToClient(p);
     }
 
     @DeleteMapping("/product/{id}")
