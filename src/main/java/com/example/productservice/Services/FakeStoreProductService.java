@@ -5,6 +5,7 @@ import com.example.productservice.DTO.FakeStoreProductResponseDTO;
 import com.example.productservice.DTO.ProductRequestDTO;
 import com.example.productservice.Models.product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +22,40 @@ public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
 
+    /* Dependency Ingestion of redisTemplate
+    *  Allows to communicate with the Redi's instance */
+    private RedisTemplate<String, Object> redisTemplate;
+
     @Autowired
-    public FakeStoreProductService(RestTemplate restTemplate){
+    public FakeStoreProductService(RestTemplate restTemplate,
+                                   RedisTemplate redisTemplate){
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
     public product getProductById(long id) throws productNotFoundException{
+        /* Check if the product is present in cache */
+        /* opsForValue method will return the value as string, which we have converted
+        *  to product java object */
+        product productFromCache =  (product) redisTemplate.opsForValue()
+                                                            .get(String.valueOf(id));
+
+        /* If the product Id is present in cache return it */
+        if(productFromCache != null){
+            return productFromCache;
+        }
+
         FakeStoreProductResponseDTO responseDTO = restTemplate.getForObject(
                 "https://fakestoreapi.com/products/" + id, FakeStoreProductResponseDTO.class);
 
         if(responseDTO == null){
             throw new productNotFoundException("Product not found");
         }
+
+        /* Inserting the value in cache */
+        redisTemplate.opsForValue().set(String.valueOf(id), responseDTO.toProduct());
+
         return responseDTO.toProduct();
     }
 
